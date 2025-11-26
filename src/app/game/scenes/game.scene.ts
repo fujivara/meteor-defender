@@ -14,7 +14,7 @@ import { StarfieldSystem } from '../systems/starfield.system';
 import { SceneKey } from '../enums/scene-key.enum';
 import { MeteorSize } from '../enums/meteor-size.enum';
 import { SoundEffect } from '../enums/sound-effect.enum';
-import { GAME_CONFIG, METEOR_CONFIGS, UI_CONFIG } from '../utils/game-constants';
+import {GAME_CONFIG, METEOR_CONFIGS, PLAYER_CONFIG, UI_CONFIG} from '../utils/game-constants';
 
 export class GameScene extends Scene {
   private player!: PlayerEntity;
@@ -52,23 +52,14 @@ export class GameScene extends Scene {
   }
 
   private createSimpleAssets(): void {
-    this.add.graphics()
-      .fillStyle(0x00ffff)
-      .fillRect(0, 0, 60, 80)
-      .generateTexture('player', 60, 80);
+    this.load.image('player', `assets/player-ship.svg`);
 
     this.add.graphics()
       .fillStyle(0xffffff)
       .fillRect(0, 0, 8, 20)
       .generateTexture('bullet', 8, 20);
 
-    ['small', 'medium', 'large'].forEach(size => {
-      const config = METEOR_CONFIGS[size as MeteorSize];
-      this.add.graphics()
-        .fillStyle(0x8B4513)
-        .fillCircle(config.width / 2, config.height / 2, config.width / 2)
-        .generateTexture(`meteor-${size}`, config.width, config.height);
-    });
+    Object.values(MeteorSize).forEach(size => this.load.image(`meteor-${size}`, `assets/meteor-${size}.svg`));
   }
 
   private initializeSystems(): void {
@@ -93,7 +84,6 @@ export class GameScene extends Scene {
   private initializeEntities(): void {
     this.player = new PlayerEntity();
 
-    // Create player sprite
     const playerState = this.player.getStateSnapshot();
     this.playerSprite = this.add.sprite(playerState.x, playerState.y, 'player');
     this.playerSprite.setOrigin(0.5);
@@ -103,8 +93,8 @@ export class GameScene extends Scene {
     const keys = this.input.keyboard?.createCursorKeys();
     if (!keys) return;
 
-    const spaceKey = this.input.keyboard?.addKey('SPACE');
-    const wasdKeys = this.input.keyboard?.addKeys('W,S,A,D');
+    this.input.keyboard?.addKey('SPACE');
+    this.input.keyboard?.addKeys('W,S,A,D');
 
     this.gameSubscriptions.push(
       fromEvent(this.input.keyboard as any, 'keydown').subscribe((event: any) => {
@@ -166,7 +156,6 @@ export class GameScene extends Scene {
       try {
         this.sound.play(SoundEffect.SHOOT, { volume: 0.3 });
       } catch (e) {
-        // Sound not available
       }
     });
   }
@@ -180,6 +169,7 @@ export class GameScene extends Scene {
     meteor.reset(size, x);
 
     const sprite = this.add.sprite(x, -50, `meteor-${size}`);
+
     meteor.setSprite(sprite);
   }
 
@@ -268,7 +258,6 @@ export class GameScene extends Scene {
               try {
                 this.sound.play(explosionSound as SoundEffect, { volume: 0.5 });
               } catch (e) {
-                // Sound not available
               }
 
               meteor.getSprite()?.destroy();
@@ -277,7 +266,6 @@ export class GameScene extends Scene {
               try {
                 this.sound.play(SoundEffect.METEOR_HIT, { volume: 0.4 });
               } catch (e) {
-                // Sound not available
               }
             }
           });
@@ -300,15 +288,12 @@ export class GameScene extends Scene {
   private updateVisuals(): void {
     const playerState = this.player.getStateSnapshot();
     if (playerState.isAlive) {
-      // Update player sprite position
       this.playerSprite.setPosition(playerState.x, playerState.y);
       this.playerSprite.setVisible(true);
 
-      // Add subtle glow effect based on shooting capability
       const alpha = playerState.canShoot ? 1 : 0.8;
       this.playerSprite.setAlpha(alpha);
 
-      // Add subtle pulse effect
       const pulseScale = 1 + Math.sin(this.time.now * 0.005) * 0.05;
       this.playerSprite.setScale(pulseScale);
     } else {
@@ -349,12 +334,9 @@ export class GameScene extends Scene {
         try {
           this.sound.play(SoundEffect.SHIP_DEATH, { volume: 0.7 });
         } catch (e) {
-          // Sound not available
         }
 
-        this.time.delayedCall(2000, () => {
-          this.scene.start(SceneKey.GAME_OVER);
-        });
+        this.scene.start(SceneKey.GAME_OVER);
       }
     });
   }

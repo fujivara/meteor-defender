@@ -45,10 +45,10 @@ export class PlayerEntity {
   private updateMovement(): void {
     let newX = this.state.x;
 
-    if (this.keys['ArrowLeft'] || this.keys['a'] || this.keys['A']) {
+    if (this.keys['ArrowLeft'] || this.keys['a'] || this.keys['A'] || this.keys['KeyA']) {
       newX -= this.config.speed;
     }
-    if (this.keys['ArrowRight'] || this.keys['d'] || this.keys['D']) {
+    if (this.keys['ArrowRight'] || this.keys['d'] || this.keys['D'] || this.keys['KeyD']) {
       newX += this.config.speed;
     }
 

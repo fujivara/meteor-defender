@@ -88,11 +88,9 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   private initializeGame(): void {
-    // Update game config with current viewport size
     const gameWidth = window.innerWidth * 0.95;
     const gameHeight = window.innerHeight * 0.9;
 
-    // Update the global game config
     (GAME_CONFIG as any).width = gameWidth;
     (GAME_CONFIG as any).height = gameHeight;
 
@@ -134,8 +132,6 @@ export class GameComponent implements OnInit, OnDestroy {
     };
 
     this.game = new Game(config);
-
-    // Game is ready - sounds will be handled by individual scenes
   }
 
   private createDummySounds(): void {

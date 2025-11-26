@@ -26,7 +26,7 @@ export class ScoringSystem {
   }
 
   getStateSnapshot(): ScoreState {
-    return { ...this.state };
+    return { ...this.stateSubject.value };
   }
 
   addScore(points: number): Observable<ScoreState> {
