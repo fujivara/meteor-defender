@@ -27,10 +27,15 @@ import { GAME_CONFIG } from './utils/game-constants';
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-height: 100vh;
+      justify-content: center;
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
       background: linear-gradient(to bottom, #000033, #000066);
       color: #00ffff;
       font-family: Arial, sans-serif;
+      overflow: hidden;
     }
 
     .game-canvas {
@@ -39,21 +44,25 @@ import { GAME_CONFIG } from './utils/game-constants';
     }
 
     .game-controls {
-      margin-top: 20px;
-      padding: 20px;
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      padding: 10px;
       background: rgba(0, 0, 51, 0.8);
       border: 1px solid #00ffff;
       border-radius: 10px;
       text-align: center;
+      font-size: 12px;
     }
 
     .game-controls h3 {
-      margin: 0 0 10px 0;
+      margin: 0 0 5px 0;
       color: #00ffff;
+      font-size: 14px;
     }
 
     .game-controls p {
-      margin: 5px 0;
+      margin: 2px 0;
       color: #ffffff;
     }
   `],
@@ -79,19 +88,23 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   private initializeGame(): void {
+    // Update game config with current viewport size
+    const gameWidth = window.innerWidth * 0.95;
+    const gameHeight = window.innerHeight * 0.9;
+
+    // Update the global game config
+    (GAME_CONFIG as any).width = gameWidth;
+    (GAME_CONFIG as any).height = gameHeight;
+
     const config: Types.Core.GameConfig = {
       type: Phaser.WEBGL,
-      width: GAME_CONFIG.width,
-      height: GAME_CONFIG.height,
+      width: gameWidth,
+      height: gameHeight,
       parent: this.gameCanvas.nativeElement,
       backgroundColor: '#000033',
       scale: {
         mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH,
-        max: {
-          width: 1920,
-          height: 1080
-        }
+        autoCenter: Phaser.Scale.CENTER_BOTH
       },
       physics: {
         default: 'arcade',

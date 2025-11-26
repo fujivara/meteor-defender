@@ -37,7 +37,7 @@ export class GameOverScene extends Scene {
 
   private createGameOverUI(): void {
     const gameOverText = this.add.text(GAME_CONFIG.width / 2, GAME_CONFIG.height / 4, 'GAME OVER', {
-      fontSize: '72px',
+      fontSize: '48px',
       color: '#ff0000',
       fontFamily: UI_CONFIG.fontFamily,
       align: 'center'
@@ -59,7 +59,7 @@ export class GameOverScene extends Scene {
       GAME_CONFIG.height / 2 - 50,
       `Final Score: ${scoreState.currentScore}`,
       {
-        fontSize: '48px',
+        fontSize: '32px',
         color: UI_CONFIG.primaryColor,
         fontFamily: UI_CONFIG.fontFamily,
         align: 'center'
@@ -72,7 +72,7 @@ export class GameOverScene extends Scene {
       GAME_CONFIG.height / 2 + 20,
       `High Score: ${scoreState.highScore}`,
       {
-        fontSize: '36px',
+        fontSize: '24px',
         color: UI_CONFIG.secondaryColor,
         fontFamily: UI_CONFIG.fontFamily,
         align: 'center'
@@ -86,7 +86,7 @@ export class GameOverScene extends Scene {
         GAME_CONFIG.height / 2 + 80,
         'NEW HIGH SCORE!',
         {
-          fontSize: '32px',
+          fontSize: '24px',
           color: '#ffff00',
           fontFamily: UI_CONFIG.fontFamily,
           align: 'center'

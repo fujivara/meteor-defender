@@ -33,7 +33,7 @@ export class MenuScene extends Scene {
 
   private createTitle(): void {
     const title = this.add.text(GAME_CONFIG.width / 2, GAME_CONFIG.height / 4, 'METEOR SHTORM', {
-      fontSize: '72px',
+      fontSize: '48px',
       color: UI_CONFIG.primaryColor,
       fontFamily: UI_CONFIG.fontFamily,
       align: 'center'
@@ -48,8 +48,8 @@ export class MenuScene extends Scene {
       repeat: -1
     });
 
-    const subtitle = this.add.text(GAME_CONFIG.width / 2, GAME_CONFIG.height / 4 + 100, 'Survive the Cosmic Storm', {
-      fontSize: '32px',
+    const subtitle = this.add.text(GAME_CONFIG.width / 2, GAME_CONFIG.height / 4 + 70, 'Survive the Cosmic Storm', {
+      fontSize: '20px',
       color: UI_CONFIG.secondaryColor,
       fontFamily: UI_CONFIG.fontFamily,
       align: 'center'

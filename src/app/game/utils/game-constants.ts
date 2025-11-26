@@ -6,8 +6,8 @@ import { UIConfig } from '../interfaces/ui.interface';
 import { MeteorSize } from '../enums/meteor-size.enum';
 
 export const GAME_CONFIG: GameConfig = {
-  width: 1920,
-  height: 1080,
+  width: 800,
+  height: 600,
   fps: 60,
   initialMeteorSpawnRate: 1.2,
   meteorSpeedIncrease: 0.1,
@@ -61,7 +61,7 @@ export const METEOR_CONFIGS: Record<MeteorSize, MeteorConfig> = {
 };
 
 export const UI_CONFIG: UIConfig = {
-  fontSize: 32,
+  fontSize: 24,
   fontFamily: 'Arial',
   primaryColor: '#00ffff',
   secondaryColor: '#ffffff',

@@ -257,7 +257,7 @@ export class GameScene extends Scene {
 
           meteor.takeDamage(bullet.getDamage()).subscribe(result => {
             if (result.destroyed) {
-              this.scoringSystem.addScore(result.scoreValue);
+              this.scoringSystem.addScore(result.scoreValue).subscribe();
               this.particleSystem.createMeteorExplosion(
                 meteor.getStateSnapshot().x,
                 meteor.getStateSnapshot().y,
