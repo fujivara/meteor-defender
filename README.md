@@ -2,7 +2,7 @@
 
 A fast-paced space arcade game where you pilot a ship through an endless meteor storm. Survive as long as you can by shooting meteors and dodging destruction! Built with Angular, TypeScript, and Phaser.
 
-![Game Screenshot](./src/assets/screenshots/meteor-shtorm-gameplay.png)
+![Game Screenshot](./public/game-screenshot.png)
 
 ## 🎮 How to Play
 
