@@ -6,8 +6,6 @@ import { GameComponent } from './game/game.component';
   selector: 'app-root',
   imports: [RouterOutlet, GameComponent],
   templateUrl: './app.html',
-  styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('meteor-shtorm');
 }
