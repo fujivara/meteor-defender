@@ -80,34 +80,35 @@ export class ParticleSystem {
 
   createPlayerDeathExplosion(x: number, y: number): Observable<void> {
     return new Observable(observer => {
-      const particleCount = 25;
-      const speed = 6;
-      const life = 2500;
-      const colors = ['#00ffff', '#0099ff', '#ffffff', '#ffaa00'];
+      const startTime = performance.now();
 
-      for (let i = 0; i < particleCount; i++) {
-        const angle = (Math.PI * 2 * i) / particleCount;
-        const particleSpeed = speed * (0.3 + Math.random() * 0.7);
-        const color = colors[Math.floor(Math.random() * colors.length)];
+      const update = (time: number) => {
+        const elapsed = time - startTime;
+        this.updateParticles(elapsed);
 
-        const particle: Particle = {
-          x,
-          y,
-          velocityX: Math.cos(angle) * particleSpeed,
-          velocityY: Math.sin(angle) * particleSpeed,
-          life,
-          maxLife: life,
-          color,
-          size: 3 + Math.random() * 4
-        };
+        if (this.particles.length === 0) {
+          observer.next();
+          observer.complete();
+        } else {
+          requestAnimationFrame(update);
+        }
+      };
 
-        this.particles.push(particle);
-      }
-
-      this.emitParticles();
-      observer.next();
-      observer.complete();
+      requestAnimationFrame(update);
     });
+  }
+
+  updateParticles(deltaTime: number) {
+    this.particles = this.particles.filter(p => {
+      p.life -= deltaTime;
+      if (p.life > 0) {
+        p.x += p.velocityX * deltaTime;
+        p.y += p.velocityY * deltaTime;
+        return true;
+      }
+      return false;
+    });
+    this.emitParticles();
   }
 
   update(deltaTime: number): Observable<void> {

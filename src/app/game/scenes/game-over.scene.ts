@@ -54,21 +54,6 @@ export class GameOverScene extends Scene {
 
     const scoreState = this.scoringSystem.getStateSnapshot();
 
-    console.log(scoreState);
-
-    const finalScoreText = this.add.text(
-      GAME_CONFIG.width / 2,
-      GAME_CONFIG.height / 2 - 50,
-      `Final Score: ${scoreState.currentScore}`,
-      {
-        fontSize: '32px',
-        color: UI_CONFIG.primaryColor,
-        fontFamily: UI_CONFIG.fontFamily,
-        align: 'center'
-      }
-    );
-    finalScoreText.setOrigin(0.5);
-
     const highScoreText = this.add.text(
       GAME_CONFIG.width / 2,
       GAME_CONFIG.height / 2 + 20,

@@ -41,6 +41,7 @@ export class GameScene extends Scene {
 
   preload(): void {
     this.createSimpleAssets();
+    this.loadAudioSounds();
   }
 
   create(): void {
@@ -60,6 +61,16 @@ export class GameScene extends Scene {
       .generateTexture('bullet', 8, 20);
 
     Object.values(MeteorSize).forEach(size => this.load.image(`meteor-${size}`, `assets/meteor-${size}.svg`));
+  }
+
+  private loadAudioSounds(): void {
+    this.load.audio(SoundEffect.SHOOT, 'assets/shoot.wav');
+    this.load.audio(SoundEffect.METEOR_HIT, 'assets/meteor_hit.wav');
+    this.load.audio(SoundEffect.METEOR_EXPLOSION_SMALL, 'assets/meteor_explosion_small.wav');
+    this.load.audio(SoundEffect.METEOR_EXPLOSION_MEDIUM, 'assets/meteor_explosion_medium.wav');
+    this.load.audio(SoundEffect.METEOR_EXPLOSION_LARGE, 'assets/meteor_explosion_large.wav');
+    this.load.audio(SoundEffect.SHIP_DEATH, 'assets/ship_death.wav');
+    this.load.audio(SoundEffect.BUTTON_CLICK, 'assets/button_click.wav');
   }
 
   private initializeSystems(): void {
